@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class UpdateWorkHours {
+public class updateWorkHours {
 public static void main(String[] args) {
 // 데이터베이스 연결 정보
 String url = "jdbc:mysql://localhost:3306/yourDatabaseName"; // 데이터베이스 URL
