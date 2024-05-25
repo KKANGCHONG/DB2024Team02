@@ -11,6 +11,7 @@ public class MainPage extends JFrame {
 
         Container contentPane = getContentPane();
         contentPane.setBackground(Color.WHITE); // 흰색 배경 설정
+        contentPane.setLayout(new GridLayout(2,1));
 
         //패널 생성
         JPanel jpanel1 = new JPanel();
@@ -32,33 +33,41 @@ public class MainPage extends JFrame {
         JLabel systemName = new JLabel("DB2024Team02's Database");
         systemName.setFont(new Font("Arial", Font.BOLD, 27));
         systemName.setForeground(Color.black);
-        systemName.setLocation(230,105); //위치 설정
+        systemName.setLocation(230,125); //위치 설정
         systemName.setSize(400,50); //크기 설정
         
         //아이콘과 제목 패널에 붙이기
         jpanel1.add(HospitalImage);
         jpanel1.add(systemName);
+
+        //패널 생성
+        JPanel jpanel2 = new JPanel();
+        jpanel2.setBackground(Color.WHITE);
+
+        //절대 위치와 크기 이용
+        jpanel2.setLayout(null);
         
         //메뉴 버튼 생성
         JButton b1 = new JButton("Reservation");
         b1.setBackground(new Color(230, 230, 230));
-        b1.setLocation(260,170); //위치 설정
+        b1.setLocation(260,0); //위치 설정
         b1.setSize(130,35); //크기 설정
         
         JButton b2 = new JButton("Patient Chart");
         b2.setBackground(new Color(230, 230, 230));
-        b2.setLocation(420,170); //위치 설정
+        b2.setLocation(260,80); //위치 설정
         b2.setSize(130,35); //크기 설정
         
         JButton b3 = new JButton("Start/End Time");
         b3.setBackground(new Color(230, 230, 230));
-        b3.setLocation(260,260); //위치 설정
+        b3.setLocation(420,0); //위치 설정
         b3.setSize(130,35); //크기 설정
         
         JButton b4 = new JButton("Logout");
         b4.setBackground(new Color(230, 230, 230));
-        b4.setLocation(420,260); //위치 설정
+        b4.setLocation(420,80); //위치 설정
         b4.setSize(130,35); //크기 설정
+        
         
         //메뉴 버튼 패널에 붙이기
         jpanel1.add(b1);
@@ -68,6 +77,7 @@ public class MainPage extends JFrame {
         
         //컨텐트팬에 패널 붙이기
         contentPane.add(jpanel1);
+        contentPane.add(jpanel2);
 
         setSize(800, 450);
         setVisible(true);
