@@ -1,4 +1,4 @@
-//의사인지 간호사인지 확인 + 역할 부ㅕ
+//의사인지 간호사인지 확인 + 역할 부여
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
