@@ -1,0 +1,66 @@
+package DB2024Team02;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class JavaGUIframework extends JFrame {
+
+    public JavaGUIframework() {
+    	setTitle("DB2024Team02 LoginPage");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Container contentPane = getContentPane();
+        contentPane.setBackground(Color.WHITE); // 흰색 배경 설정
+        contentPane.setLayout(new GridLayout(2,1));
+
+        //패널 생성
+        JPanel jpanel1 = new JPanel();
+        jpanel1.setBackground(Color.WHITE);
+        
+        //절대 위치와 크기 이용
+        jpanel1.setLayout(null);
+
+        //아이콘 추가
+        ImageIcon originalIcon = new ImageIcon("C:\\Users\\leehy\\OneDrive\\바탕 화면\\free-icon-hospital-3304592.png");
+        Image img = originalIcon.getImage();
+        Image scaledImg = img.getScaledInstance(40, 40, Image.SCALE_SMOOTH); //크기 설정
+        ImageIcon scaledIcon = new ImageIcon(scaledImg);
+        JLabel HospitalImage = new JLabel(scaledIcon);
+        HospitalImage.setLocation(385,80); //위치 설정
+        HospitalImage.setSize(40,40); //크기 설정
+
+        //제목 추가
+        JLabel systemName = new JLabel("DB2024Team02's Database");
+        systemName.setFont(new Font("Arial", Font.BOLD, 27));
+        systemName.setForeground(Color.black);
+        systemName.setLocation(230,125); //위치 설정
+        systemName.setSize(400,50); //크기 설정
+        
+        //아이콘과 제목 패널에 붙이기
+        jpanel1.add(HospitalImage);
+        jpanel1.add(systemName);
+        
+        //패널 생성
+        JPanel jpanel2 = new JPanel();
+        jpanel2.setBackground(Color.WHITE);
+        
+        /*
+         * 일단 배치 관리자는 절대 위치로 설정 해놨는데 필요에 따라 수정하세요!
+        jpanel2.setLayout(null);
+        */
+        
+        /*여기에 각자 gui 코드 작성하기*/
+        
+        
+         //컨텐트팬에 패널 붙이기
+        contentPane.add(jpanel1);
+        contentPane.add(jpanel2);
+
+        setSize(800, 450);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        javaGUIframework javaGUIframework = new javaGUIframework();
+    }
+}
