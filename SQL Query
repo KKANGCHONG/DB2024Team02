@@ -1,4 +1,4 @@
-// 1. 의사 테이블
+-- 1. 의사 테이블
 
 INSERT INTO DB2024_Doctor (DoctorID, DoctorName, DoctorDepartment, ContactNumber, StartTime, EndTime, PassWord)
 VALUES
@@ -13,7 +13,7 @@ VALUES
 (09, '한서윤', '소아과', '010-9012-3456', '09:30:00', '18:30:00', 9012),
 (10, '서지훈', '소아과', '010-0123-4567', '08:00:00', '17:00:00', 1010);
 
-// 2. 간호사 테이블
+-- 2. 간호사 테이블
 
 INSERT INTO DB2024_Nurse (NurseID, NurseName, NurseDepartment, ContactNumber, StartTime, EndTime, PassWord)
 VALUES
@@ -33,7 +33,7 @@ VALUES
 (14, '최나은', '소아과', '010-4455-6678', '08:30:00', '17:30:00', 1415),
 (15, '정지현', '소아과', '010-5566-7789', '09:30:00', '18:30:00', 1516);
 
-// 3. 환자 테이블
+-- 3. 환자 테이블
 
 insert into DB2024_patient (PatientID, Name, Birth, Address, Phone, GuardianPhone, DoctorID, NurseID)
 values
