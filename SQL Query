@@ -1,4 +1,4 @@
---의사 테이블 #의사는 9, 간호사는 0 / 내과 11, 신경과 12, 정형외과 13, 소아과 14
+--의사 테이블 : 의사는 9, 간호사는 0 / 내과 11, 신경과 12, 정형외과 13, 소아과 14
 
 INSERT INTO DB2024_Doctor (DoctorID, DoctorName, DoctorDepartment, ContactNumber, StartTime, EndTime, PassWord)
 VALUES
