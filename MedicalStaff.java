@@ -9,8 +9,8 @@ import java.sql.*;
 // 현재 상주하는 비상 대응 인력을 보는 창
 public class MedicalStaff extends JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/DB2024Team02";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "0614346";
+    private static final String DB_USER = "";
+    private static final String DB_PASSWORD = "";
 
     private JTable table;
     private DefaultTableModel tableModel;
