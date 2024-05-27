@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.util.Scanner;
 
 //치료 정보 입력
-public class ManageHospital {
+public class ManageTreatment {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/Hospital";
     private static final String USER = "root";
     private static final String PASS = "root";
