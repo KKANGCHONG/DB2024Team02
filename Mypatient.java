@@ -16,8 +16,8 @@ public class Mypatient extends JFrame {
     private JLabel doctorInfoLabel; // 의사 정보를 표시할 레이블
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/DB2024Team02";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "0614346";
+    private static final String DB_USER = "";
+    private static final String DB_PASSWORD = "";
 
     // 가정: 현재 로그인한 사용자의 ID (실제 응용 프로그램에서는 로그인 세션에서 이 값을 가져와야 함)
     private int currentUserId = 1; // 로그인 페이지에서 ID 정보 가져오기 admin
