@@ -1,74 +1,105 @@
-//치료 정보 입력
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Scanner;
 
-public class DoctorDatabaseManager {
+//치료 정보 입력
+public class ManageHospital {
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/Hospital";
+    private static final String USER = "root";
+    private static final String PASS = "root";
 
-```
-private Connection connectToDatabase() {
-    String url = "jdbc:mysql://localhost:3306/yourDatabaseName"; // 데이터베이스 URL
-    String user = "yourUsername"; // 데이터베이스 사용자 이름
-    String password = "yourPassword"; // 데이터베이스 비밀번호
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-    try {
-        return DriverManager.getConnection(url, user, password);
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return null;
-    }
-}
-
-public String getUserRole(String username, String password) {
-    String role = null;
-    try (Connection conn = connectToDatabase()) {
-        String query = "SELECT role FROM users WHERE username = ? AND password = ?";
-        PreparedStatement ps = conn.prepareStatement(query);
-
-        ps.setString(1, username);
-        ps.setString(2, password);
-
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            role = rs.getString("role");
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return role;
-}
-
-public void insertPatientTreatment(String username, String password, String insertQuery) {
-    if ("Doctor".equals(getUserRole(username, password))) {
-        try (Connection conn = connectToDatabase()) {
-            PreparedStatement ps = conn.prepareStatement(insertQuery);
-            int rowsAffected = ps.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("환자 치료 정보가 성공적으로 입력되었습니다.");
+        try {
+            System.out.println("의사 ID와 비밀번호를 입력해주세요.");
+            System.out.print("ID: ");
+            int doctorId = scanner.nextInt();
+            if(doctorId/10000 == 0) {
+            	System.out.print("환자 정보를 입력할 수 없습니다.");
+            	System.exit(0);
             }
-        } catch (SQLException e) {
+            
+            System.out.print("비밀번호: ");
+            int password = scanner.nextInt();
+            scanner.nextLine(); // 입력 버퍼 지우기
+
+            // 의사 인증
+            if (authenticateDoctor(doctorId, password)) {
+                // 치료 정보 입력
+                System.out.println("새로운 치료 정보를 입력하세요.");
+                
+                System.out.print("환자 ID: ");
+                int patientId = scanner.nextInt();
+                scanner.nextLine(); // 입력 버퍼 지우기
+
+                System.out.print("질병 ID: ");
+                int diseaseId = scanner.nextInt();
+                scanner.nextLine(); // 입력 버퍼 지우기
+
+                System.out.print("약품 ID: ");
+                int medicationId = scanner.nextInt();
+                scanner.nextLine(); // 입력 버퍼 지우기
+
+                System.out.print("권장 치료: ");
+                String recommendedTreatment = scanner.nextLine();
+
+                System.out.print("날짜 (YYYY-MM-DD): ");
+                String date = scanner.nextLine();
+
+                System.out.print("투약량: ");
+                String dosage = scanner.nextLine();
+
+                System.out.print("KTAS 점수: ");
+                int ktas = scanner.nextInt();
+
+                addTreatment(patientId, diseaseId, medicationId, recommendedTreatment, date, dosage, ktas);
+            } else {
+                System.out.println("인증에 실패했습니다. 프로그램을 종료합니다.");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            scanner.close();
         }
-    } else {
-        System.out.println("오직 의사만이 환자 정보를 입력할 수 있습니다.");
     }
-}
 
-public static void main(String[] args) {
-    DoctorDatabaseManager manager = new DoctorDatabaseManager();
+    private static boolean authenticateDoctor(int doctorId, int password) throws Exception {
+        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        String sql = "SELECT * FROM DB2024_Doctor WHERE DoctorID = ? AND PassWord = ?";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setInt(1, doctorId);
+        statement.setInt(2, password);
 
-    // 사용자의 이름과 비밀번호
-    String username = "doctorUser";
-    String password = "doctorPassword";
+        boolean isAuthenticated = statement.executeQuery().next();
+        statement.close();
+        conn.close();
 
-    // 데이터베이스에 입력할 환자 치료 정보 쿼리
-    String insertQuery = "INSERT INTO DB2024_Treatment (PatientID, DiseaseID, MedicationID, RecommendedTreatment, Date, Dosage, KTAS) VALUES (26, 01, 01, '고혈압 관리: 저염식 식이요법과 규칙적인 운동 병행', '2024-02-01', '10mg', 3), (27, 02, 02, '당뇨병 관리: 혈당 수치 모니터링 및 저탄수화물 식단', '2024-02-02', '500mg', 4), (28, 03, 03, '천식 관리: 규칙적인 약물 복용과 호흡 운동', '2024-02-03', '200mcg', 3), (29, 04, 04, '관절염 관리: 항염증제 복용과 물리치료 병행', '2024-02-04', '400mg', 3);";
+        return isAuthenticated;
+    }
 
-    // 환자 치료 정보를 데이터베이스에 입력
-    manager.insertPatientTreatment(username, password, insertQuery);
+    private static void addTreatment(int patientId, int diseaseId, int medicationId, String recommendedTreatment, String date, String dosage, int ktas) throws Exception {
+        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        String sql = "INSERT INTO DB2024_Treatment (PatientID, DiseaseID, MedicationID, RecommendedTreatment, Date, Dosage, KTAS) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = conn.prepareStatement(sql);
+
+        statement.setInt(1, patientId);
+        statement.setInt(2, diseaseId);
+        statement.setInt(3, medicationId);
+        statement.setString(4, recommendedTreatment);
+        statement.setString(5, date);
+        statement.setString(6, dosage);
+        statement.setInt(7, ktas);
+
+        int rowsInserted = statement.executeUpdate();
+        if (rowsInserted > 0) {
+            System.out.println("새 치료 정보가 성공적으로 추가되었습니다.");
+        } else {
+            System.out.println("치료 정보 추가에 실패했습니다.");
+        }
+
+        statement.close();
+        conn.close();
+    }
 }
