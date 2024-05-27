@@ -29,16 +29,15 @@ public class ManagePatient {
             if (authenticateDoctor(doctorId, password)) {
                 // 환자 정보 입력
                 System.out.println("새 환자의 정보를 입력하세요.");
-                
-                System.out.print("환자ID: ");
-                int PatientID = scanner.nextInt();
-                scanner.nextLine();
 
                 System.out.print("이름: ");
                 String name = scanner.nextLine();
 
                 System.out.print("생년월일(YYYY-MM-DD): ");
                 String birth = scanner.nextLine();
+                
+                System.out.print("주민번호: ");
+                String residentnum = scanner.nextLine();
 
                 System.out.print("주소: ");
                 String address = scanner.nextLine();
@@ -52,7 +51,7 @@ public class ManagePatient {
                 System.out.print("담당 간호사ID: ");
                 int nurseId = scanner.nextInt();
 
-                addPatient(PatientID, name, birth, address, phone, guardianPhone, doctorId, nurseId);
+                addPatient(name, birth, residentnum, address, phone, guardianPhone, doctorId, nurseId);
             } else {
                 System.out.println("인증에 실패했습니다. 프로그램을 종료합니다.");
             }
@@ -80,14 +79,14 @@ public class ManagePatient {
         return isAuthenticated;
     }
 
-    private static void addPatient(int PatientID, String name, String birth, String address, String phone, String guardianPhone, int doctorId, int nurseId) throws Exception {
+    private static void addPatient(String name, String birth, String residentnum, String address, String phone, String guardianPhone, int doctorId, int nurseId) throws Exception {
         Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-        String sql = "INSERT INTO DB2024_Patient (PatientID, Name, Birth, Address, Phone, GuardianPhone, DoctorID, NurseID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO DB2024_Patient (Name, Birth, ResidentNum, Address, Phone, GuardianPhone, DoctorID, NurseID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = conn.prepareStatement(sql);
 
-        statement.setInt(1, PatientID);
-        statement.setString(2, name);
-        statement.setString(3, birth);
+        statement.setString(1, name);
+        statement.setString(2, birth);
+        statement.setString(3, residentnum);
         statement.setString(4, address);
         statement.setString(5, phone);
         statement.setString(6, guardianPhone);
