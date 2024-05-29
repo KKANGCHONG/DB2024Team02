@@ -16,7 +16,7 @@ public class LoginPage extends JFrame implements ActionListener {
 	Statement stmt = null;
 	String url = "jdbc:mysql://localhost/3306?serverTimezone=Asia/Seoul";	//dbstudy 스키마
 	String user = "root";
-	String passwd = "imjiwoo68?";		//본인이 설정한 root 계정의 비밀번호를 입력하면 된다.
+	String passwd = "각자 비밀번호호";		//본인이 설정한 root 계정의 비밀번호를 입력하면 된다.
 	
 	LoginPage() {	//데이터베이스에 연결한다.
 		try {
