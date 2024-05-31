@@ -114,7 +114,7 @@ public class DoctorList extends JFrame {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
-        }
+        }A
     }
 
     
