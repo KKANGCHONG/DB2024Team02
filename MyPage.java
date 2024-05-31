@@ -15,8 +15,8 @@ public class MyPage {
     private JFrame doctorpatient; // 메인 화면 인스턴스를 저장할 변수
     private JFrame nursepatient; // 메인 화면 인스턴스를 저장할 변수
     private static final String DB_URL = "jdbc:mysql://localhost:3306/DB2024Team02";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "0614346";
+    private static final String DB_USER = "";
+    private static final String DB_PASSWORD = "";
     
     private int currentUserId; // 의사 ID로 가정
     
