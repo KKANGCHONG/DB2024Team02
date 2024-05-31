@@ -6,60 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-
 public class LoginPage extends JFrame implements ActionListener {
     private JTextField idField;
     private JPasswordField pwField;
     private JButton loginButton;
-    
-    Connection con = null;
-	Statement stmt = null;
-	String url = "jdbc:mysql://localhost/3306?serverTimezone=Asia/Seoul";	//dbstudy 스키마
-	String user = "root";
-	String passwd = "각자 비밀번호호";		//본인이 설정한 root 계정의 비밀번호를 입력하면 된다.
-	
-	LoginPage() {	//데이터베이스에 연결한다.
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(url, user, passwd);
-			stmt = con.createStatement();
-			System.out.println("MySQL 서버 연동 성공");
-		} catch(Exception e) {
-			System.out.println("MySQL 서버 연동 실패 > " + e.toString());
-		}
-	}
-
-	/* 로그인 정보를 확인 */
-	boolean logincheck(String _i, String _p) {
-		boolean flag = false;
-		
-		String id = _i;
-		String pw = _p;
-		
-		try {
-			String checkingStr = "SELECT password FROM member WHERE id='" + id + "'";
-			ResultSet result = stmt.executeQuery(checkingStr);
-			
-			int count = 0;
-			while(result.next()) {
-				if(pw.equals(result.getString("password"))) {
-					flag = true;
-					System.out.println("로그인 성공");
-				}
-				
-				else {
-					flag = false;
-					System.out.println("로그인 실패");
-				}
-				count++;
-			}
-		} catch(Exception e) {
-			flag = false;
-			System.out.println("로그인 실패 > " + e.toString());
-		}
-		
-		return flag;
-	}
 
     public LoginPage() {
         setTitle("DB2024Team02 Login");
@@ -74,16 +24,19 @@ public class LoginPage extends JFrame implements ActionListener {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints mainGbc = new GridBagConstraints();
+        mainGbc.insets = new Insets(10, 10, 10, 10);
+        mainGbc.fill = GridBagConstraints.HORIZONTAL;
 
         // 제목 추가
         JLabel systemName = new JLabel("DB2024Team02's Database");
         systemName.setFont(new Font("Arial", Font.BOLD, 27));
         systemName.setForeground(Color.black);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.CENTER;
-        mainPanel.add(systemName, gbc);
+        mainGbc.gridx = 0;
+        mainGbc.gridy = 0;
+        mainGbc.gridwidth = 2;
+        mainGbc.anchor = GridBagConstraints.CENTER;
+        mainPanel.add(systemName, mainGbc);
 
         // 아이콘 추가
         ImageIcon originalIcon = new ImageIcon("C:\\Users\\dci06\\Pictures\\Screenshots\\hospital_logo.png");
@@ -91,39 +44,53 @@ public class LoginPage extends JFrame implements ActionListener {
         Image scaledImg = img.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImg);
         JLabel hospitalImage = new JLabel(scaledIcon);
-        gbc.gridy = 1;
-        mainPanel.add(hospitalImage, gbc);
+        mainGbc.gridy = 1;
+        mainPanel.add(hospitalImage, mainGbc);
 
-        // ID 입력 필드 추가
+        // ID 라벨 및 입력 필드 추가
         JLabel idLabel = new JLabel("ID");
         idLabel.setFont(new Font("Arial", Font.BOLD, 25));
         idLabel.setForeground(Color.black);
-        gbc.gridy = 2;
-        mainPanel.add(idLabel, gbc);
+        mainGbc.gridy = 2;
+        mainGbc.gridx = 0;
+        mainGbc.gridwidth = 1;
+        mainGbc.insets = new Insets(10, 10, 0, 5); // reduce right inset
+        mainGbc.anchor = GridBagConstraints.EAST;
+        mainPanel.add(idLabel, mainGbc);
 
         idField = new JTextField(15);
         idField.setBackground(new Color(230, 230, 230));
-        gbc.gridy = 3;
-        mainPanel.add(idField, gbc);
+        mainGbc.gridx = 1;
+        mainGbc.insets = new Insets(10, 5, 0, 10); // reduce left inset
+        mainGbc.anchor = GridBagConstraints.WEST;
+        mainPanel.add(idField, mainGbc);
 
-        // PW 입력 필드 추가
+        // PW 라벨 및 입력 필드 추가
         JLabel pwLabel = new JLabel("PW");
         pwLabel.setFont(new Font("Arial", Font.BOLD, 25));
         pwLabel.setForeground(Color.black);
-        gbc.gridy = 4;
-        mainPanel.add(pwLabel, gbc);
+        mainGbc.gridy = 3;
+        mainGbc.gridx = 0;
+        mainGbc.insets = new Insets(10, 10, 0, 5); // reduce right inset
+        mainGbc.anchor = GridBagConstraints.EAST;
+        mainPanel.add(pwLabel, mainGbc);
 
         pwField = new JPasswordField(15);
         pwField.setBackground(new Color(230, 230, 230));
-        gbc.gridy = 5;
-        mainPanel.add(pwField, gbc);
+        mainGbc.gridx = 1;
+        mainGbc.insets = new Insets(10, 5, 0, 10); // reduce left inset
+        mainGbc.anchor = GridBagConstraints.WEST;
+        mainPanel.add(pwField, mainGbc);
 
         // 로그인 버튼 추가
         loginButton = new JButton("로그인");
-        loginButton.setBounds(320, 150, 130, 35);
         loginButton.addActionListener(this);
-        gbc.gridy = 6;
-        mainPanel.add(loginButton, gbc);
+        mainGbc.gridy = 4;
+        mainGbc.gridx = 0;
+        mainGbc.gridwidth = 2;
+        mainGbc.insets = new Insets(20, 10, 10, 10);
+        mainGbc.anchor = GridBagConstraints.CENTER;
+        mainPanel.add(loginButton, mainGbc);
 
         // 컨텐트팬에 패널 붙이기
         contentPane.add(mainPanel);
@@ -134,7 +101,42 @@ public class LoginPage extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Implement login logic here
+        if (e.getSource() == loginButton) {
+            String id = idField.getText();
+            String pass = new String(pwField.getPassword());
+
+            try {
+                String sql_query = String.format("SELECT Password FROM LoginDB WHERE ID = '%s' AND Password ='%s'",
+                        id, pass);
+
+                Connection conn = getConnection();
+                Statement stmt = conn.createStatement();
+
+                ResultSet rset = stmt.executeQuery(sql_query);
+
+                if (rset.next() && pass.equals(rset.getString(1))) {
+                    JOptionPane.showMessageDialog(this, "Login Success", "로그인 성공", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Login Failed", "로그인 실패", JOptionPane.ERROR_MESSAGE);
+                }
+
+                stmt.close();
+                conn.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Login Failed", "로그인 실패", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private Connection getConnection() throws SQLException {
+        // Implement your database connection here.
+        // Example:
+        String url = "jdbc:mysql://localhost:3306/DB2024Team2";
+        String username = "root";
+        String password = "imjiwoo68?";
+        return DriverManager.getConnection(url, username, password);
     }
 
     public static void main(String[] args) {
