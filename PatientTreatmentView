@@ -1,0 +1,26 @@
+-- 환자 테이블과 치료 테이블을 결합한 뷰
+
+CREATE VIEW PatientTreatmentView AS
+SELECT
+p.PatientID,
+[p.Name](http://p.name/) AS PatientName,
+p.Birth AS DateOfBirth,
+p.Address,
+p.Phone AS PatientPhone,
+p.GuardianPhone,
+t.DiseaseID,
+d.DiseaseName,
+t.MedicationID,
+m.MedicationName,
+t.RecommendedTreatment,
+t.Date AS TreatmentDate,
+t.Dosage,
+t.KTAS
+FROM
+DB2024_patient p
+JOIN
+DB2024_Treatment t ON p.PatientID = t.PatientID
+JOIN
+DB2024_Disease d ON t.DiseaseID = d.DiseaseID
+JOIN
+DB2024_Medication m ON t.MedicationID = m.MedicationID;
