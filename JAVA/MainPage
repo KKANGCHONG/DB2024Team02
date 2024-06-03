@@ -2,97 +2,95 @@ package DB2024Team02;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainPage extends JFrame {
+
+    public static void main(String[] args) {
+        MainPage mainPage = new MainPage();
+    }
 
     public MainPage() {
         setTitle("DB2024Team02 MainPage");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(662, 831);  // Set initial size for the JFrame
 
         Container contentPane = getContentPane();
         contentPane.setBackground(Color.WHITE); // 흰색 배경 설정
-        contentPane.setLayout(new BorderLayout());
+        contentPane.setLayout(null); // Set to null layout for absolute positioning
 
         // 상단 패널 생성
-        JPanel jpanel1 = new JPanel();
-        jpanel1.setBackground(Color.WHITE);
-        jpanel1.setLayout(new FlowLayout());
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(0, 0, 160));
+        panel.setBounds(0, 0, 647, 51);
+        contentPane.add(panel);
 
-        // 아이콘 추가
-        ImageIcon originalIcon = new ImageIcon("C:\\Users\\leehy\\OneDrive\\바탕 화면\\free-icon-hospital-3304592.png");
-        Image img = originalIcon.getImage();
-        Image scaledImg = img.getScaledInstance(40, 40, Image.SCALE_SMOOTH); // 크기 설정
-        ImageIcon scaledIcon = new ImageIcon(scaledImg);
-        JLabel HospitalImage = new JLabel(scaledIcon);
-        
-        // 제목 추가
-        JLabel systemName = new JLabel("비상 대응 인력 관리 프로그램");
-        systemName.setFont(new Font("Arial", Font.BOLD, 27));
-        systemName.setForeground(Color.black);
+        JPanel panel_1 = new JPanel();
+        panel_1.setBounds(0, 168, 647, 10);
+        panel_1.setBackground(new Color(0, 0, 160));
+        contentPane.add(panel_1);
 
-        // 아이콘과 제목 패널에 붙이기
-        jpanel1.add(HospitalImage);
-        jpanel1.add(systemName);
+        JLabel lblNewLabel = new JLabel("비상 인력 관리 프로그램");
+        lblNewLabel.setBounds(135, 86, 396, 51);
+        lblNewLabel.setFont(new Font("HY헤드라인M", Font.PLAIN, 35));
+        lblNewLabel.setForeground(new Color(0, 0, 160));
+        contentPane.add(lblNewLabel);
 
-        // 버튼 패널 생성
-        JPanel jpanel2 = new JPanel();
-        jpanel2.setBackground(Color.WHITE);
-        jpanel2.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        JButton btnNewButton_2 = new JButton("의사 정보");
+        btnNewButton_2.setForeground(Color.WHITE);
+        btnNewButton_2.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
+        btnNewButton_2.setBackground(new Color(166, 191, 206));
+        btnNewButton_2.setBounds(119, 292, 195, 192);
+        contentPane.add(btnNewButton_2);
 
-        // 의사 개인정보 버튼
-        JButton doctorButton = new JButton("의사 정보");
-        doctorButton.setBackground(new Color(230, 230, 230));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        jpanel2.add(doctorButton, gbc);
+        JButton btnNewButton_2_1 = new JButton("간호사 정보");
+        btnNewButton_2_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        btnNewButton_2_1.setForeground(Color.WHITE);
+        btnNewButton_2_1.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
+        btnNewButton_2_1.setBackground(new Color(166, 191, 206));
+        btnNewButton_2_1.setBounds(326, 292, 195, 192);
+        contentPane.add(btnNewButton_2_1);
 
-        // 간호사 개인정보 버튼
-        JButton nurseButton = new JButton("간호사 정보");
-        nurseButton.setBackground(new Color(230, 230, 230));
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        jpanel2.add(nurseButton, gbc);
+        JButton btnNewButton_2_1_1 = new JButton("환자 정보");
+        btnNewButton_2_1_1.setForeground(Color.WHITE);
+        btnNewButton_2_1_1.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
+        btnNewButton_2_1_1.setBackground(new Color(166, 191, 206));
+        btnNewButton_2_1_1.setBounds(119, 497, 195, 192);
+        contentPane.add(btnNewButton_2_1_1);
 
-        // Patient Info 버튼
-        JButton patientButton = new JButton("환자 정보");
-        patientButton.setBackground(new Color(230, 230, 230));
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        jpanel2.add(patientButton, gbc);
+        JButton btnNewButton_2_1_1_1 = new JButton("치료 / 약물 정보");
+        btnNewButton_2_1_1_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        btnNewButton_2_1_1_1.setForeground(Color.WHITE);
+        btnNewButton_2_1_1_1.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
+        btnNewButton_2_1_1_1.setBackground(new Color(166, 191, 206));
+        btnNewButton_2_1_1_1.setBounds(326, 497, 195, 192);
+        contentPane.add(btnNewButton_2_1_1_1);
 
-        // Medical Info 버튼
-        JButton medicalInfoButton = new JButton("치료 / 약물 정보");
-        medicalInfoButton.setBackground(new Color(230, 230, 230));
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        jpanel2.add(medicalInfoButton, gbc);
+        JButton btnNewButton_1 = new JButton("긴급 대응 인력");
+        btnNewButton_1.setForeground(Color.WHITE);
+        btnNewButton_1.setBackground(new Color(255, 170, 170));
+        btnNewButton_1.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
+        btnNewButton_1.setBounds(0, 719, 647, 74);
+        contentPane.add(btnNewButton_1);
 
-        // 비상 인력 버튼
-        JButton emergencyButton = new JButton("긴급 대응 인력");
-        emergencyButton.setBackground(new Color(230, 230, 230));
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        jpanel2.add(emergencyButton, gbc);
+        JButton btnNewButton = new JButton("마이 페이지");
+        btnNewButton.setForeground(Color.WHITE);
+        btnNewButton.setBackground(new Color(166, 191, 206));
+        btnNewButton.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        btnNewButton.setBounds(219, 212, 207, 51);
+        contentPane.add(btnNewButton);
 
-        // My Page 버튼
-        JButton myPageButton = new JButton("마이 페이지");
-        myPageButton.setBackground(new Color(230, 230, 230));
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        jpanel2.add(myPageButton, gbc);
-
-        // 컨텐트팬에 패널 붙이기
-        contentPane.add(jpanel1, BorderLayout.NORTH);
-        contentPane.add(jpanel2, BorderLayout.CENTER);
-
-        setSize(800, 450);
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        MainPage mainPage = new MainPage();
     }
 }
