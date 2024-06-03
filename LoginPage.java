@@ -116,6 +116,7 @@ public class LoginPage extends JFrame implements ActionListener {
 
                 if (rset.next() && pass.equals(rset.getString(1))) {
                     JOptionPane.showMessageDialog(this, "Login Success", "로그인 성공", JOptionPane.INFORMATION_MESSAGE);
+                    new MainPage();
                 } else {
                     JOptionPane.showMessageDialog(this, "Login Failed", "로그인 실패", JOptionPane.ERROR_MESSAGE);
                 }
@@ -133,9 +134,9 @@ public class LoginPage extends JFrame implements ActionListener {
     private Connection getConnection() throws SQLException {
         // Implement your database connection here.
         // Example:
-        String url = "jdbc:mysql://localhost:3306/DB2024Team2";
-        String username = "root";
-        String password = "imjiwoo68?";
+        String url = "jdbc:mysql://localhost:3306/DB2024Team02";
+        String username = "DB2024Team02";
+        String password = "DB2024Team02";
         return DriverManager.getConnection(url, username, password);
     }
 
