@@ -5,48 +5,61 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// MainPage 클래스는 JFrame을 상속받아 GUI 애플리케이션의 메인 페이지를 구현합니다.
 public class MainPage extends JFrame {
 
+    // 메인 메서드: 프로그램 시작 지점
     public static void main(String[] args) {
-        MainPage mainPage = new MainPage();
+        MainPage mainPage = new MainPage();  // MainPage 인스턴스를 생성하여 메인 페이지를 엽니다.
     }
 
+    // MainPage 생성자: JFrame 설정 및 구성 요소 초기화
     public MainPage() {
+        // JFrame 창의 제목을 설정합니다.
         setTitle("DB2024Team02 MainPage");
+        // 창을 닫을 때 프로그램이 종료되도록 설정합니다.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(662, 831);  // Set initial size for the JFrame
+        // JFrame 창의 초기 크기를 설정합니다.
+        setSize(662, 831);
 
+        // JFrame의 ContentPane을 가져오고 배경색을 흰색으로 설정합니다.
         Container contentPane = getContentPane();
-        contentPane.setBackground(Color.WHITE); // 흰색 배경 설정
-        contentPane.setLayout(null); // Set to null layout for absolute positioning
+        contentPane.setBackground(Color.WHITE);
+        // 절대 위치를 사용하기 위해 레이아웃을 null로 설정합니다.
+        contentPane.setLayout(null);
 
-        // 상단 패널 생성
+        // 상단 패널을 생성하고 파란색 배경을 설정합니다.
         JPanel panel = new JPanel();
         panel.setBackground(new Color(0, 0, 160));
-        panel.setBounds(0, 0, 647, 51);
+        panel.setBounds(0, 0, 647, 51); // 위치와 크기를 설정합니다.
         contentPane.add(panel);
 
+        // 상단 아래에 또 다른 파란색 패널을 생성합니다.
         JPanel panel_1 = new JPanel();
-        panel_1.setBounds(0, 168, 647, 10);
+        panel_1.setBounds(0, 168, 647, 10); // 위치와 크기를 설정합니다.
         panel_1.setBackground(new Color(0, 0, 160));
         contentPane.add(panel_1);
 
+        // 타이틀 텍스트가 있는 라벨을 생성합니다.
         JLabel lblNewLabel = new JLabel("비상 인력 관리 프로그램");
-        lblNewLabel.setBounds(135, 86, 396, 51);
-        lblNewLabel.setFont(new Font("HY헤드라인M", Font.PLAIN, 35));
-        lblNewLabel.setForeground(new Color(0, 0, 160));
+        lblNewLabel.setBounds(135, 86, 396, 51); // 위치와 크기를 설정합니다.
+        lblNewLabel.setFont(new Font("HY헤드라인M", Font.PLAIN, 35)); // 글꼴 스타일과 크기를 설정합니다.
+        lblNewLabel.setForeground(new Color(0, 0, 160)); // 글꼴 색상을 설정합니다.
         contentPane.add(lblNewLabel);
 
+        // 의사 정보 버튼을 생성합니다.
         JButton btnNewButton_2 = new JButton("의사 정보");
-        btnNewButton_2.setForeground(Color.WHITE);
-        btnNewButton_2.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
-        btnNewButton_2.setBackground(new Color(166, 191, 206));
-        btnNewButton_2.setBounds(119, 292, 195, 192);
+        btnNewButton_2.setForeground(Color.WHITE); // 텍스트 색상을 설정합니다.
+        btnNewButton_2.setFont(new Font("HY헤드라인M", Font.PLAIN, 18)); // 글꼴 스타일과 크기를 설정합니다.
+        btnNewButton_2.setBackground(new Color(166, 191, 206)); // 배경색을 설정합니다.
+        btnNewButton_2.setBounds(119, 292, 195, 192); // 위치와 크기를 설정합니다.
         contentPane.add(btnNewButton_2);
 
+        // 간호사 정보 버튼을 생성합니다.
         JButton btnNewButton_2_1 = new JButton("간호사 정보");
         btnNewButton_2_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // 여기에 버튼 클릭 시 동작할 로직을 추가합니다.
             }
         });
         btnNewButton_2_1.setForeground(Color.WHITE);
@@ -55,6 +68,7 @@ public class MainPage extends JFrame {
         btnNewButton_2_1.setBounds(326, 292, 195, 192);
         contentPane.add(btnNewButton_2_1);
 
+        // 환자 정보 버튼을 생성합니다.
         JButton btnNewButton_2_1_1 = new JButton("환자 정보");
         btnNewButton_2_1_1.setForeground(Color.WHITE);
         btnNewButton_2_1_1.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
@@ -62,9 +76,11 @@ public class MainPage extends JFrame {
         btnNewButton_2_1_1.setBounds(119, 497, 195, 192);
         contentPane.add(btnNewButton_2_1_1);
 
+        // 치료 / 약물 정보 버튼을 생성합니다.
         JButton btnNewButton_2_1_1_1 = new JButton("치료 / 약물 정보");
         btnNewButton_2_1_1_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // 여기에 버튼 클릭 시 동작할 로직을 추가합니다.
             }
         });
         btnNewButton_2_1_1_1.setForeground(Color.WHITE);
@@ -73,24 +89,28 @@ public class MainPage extends JFrame {
         btnNewButton_2_1_1_1.setBounds(326, 497, 195, 192);
         contentPane.add(btnNewButton_2_1_1_1);
 
+        // 긴급 대응 인력 버튼을 생성합니다.
         JButton btnNewButton_1 = new JButton("긴급 대응 인력");
         btnNewButton_1.setForeground(Color.WHITE);
-        btnNewButton_1.setBackground(new Color(255, 170, 170));
+        btnNewButton_1.setBackground(new Color(255, 170, 170)); // 강조를 위해 다른 배경색을 설정합니다.
         btnNewButton_1.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
-        btnNewButton_1.setBounds(0, 719, 647, 74);
+        btnNewButton_1.setBounds(0, 719, 647, 74); // 위치와 크기를 설정하여 하단에 배치합니다.
         contentPane.add(btnNewButton_1);
 
+        // 마이 페이지 버튼을 생성합니다.
         JButton btnNewButton = new JButton("마이 페이지");
         btnNewButton.setForeground(Color.WHITE);
         btnNewButton.setBackground(new Color(166, 191, 206));
         btnNewButton.setFont(new Font("HY헤드라인M", Font.PLAIN, 18));
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // 여기에 버튼 클릭 시 동작할 로직을 추가합니다.
             }
         });
-        btnNewButton.setBounds(219, 212, 207, 51);
+        btnNewButton.setBounds(219, 212, 207, 51); // 위치와 크기를 설정합니다.
         contentPane.add(btnNewButton);
 
+        // JFrame을 화면에 보이도록 설정합니다.
         setVisible(true);
     }
 }
