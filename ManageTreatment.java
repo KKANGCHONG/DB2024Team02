@@ -7,85 +7,91 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class ManageTreatment extends JFrame {
+    // 데이터베이스 연결 URL 및 사용자 정보 상수
     private static final String DB_URL = "jdbc:mysql://localhost:3306/DB2024Team02";
     private static final String USER = "root";
     private static final String PASS = "root";
 
+    // 사용자 입력 필드 선언
     private JTextField doctorIdField, passwordField, patientIdField, diseaseIdField, medicationIdField, recommendedTreatmentField, dateField, dosageField, ktasField;
     private JButton authenticateButton, addButton;
     private JLabel statusLabel;
 
     public ManageTreatment() {
-    	 setTitle("ġ�� ���� �ý���");
-    	    setSize(400, 600);
-    	    setLayout(new GridLayout(11, 2, 5, 5)); // 11 rows, 2 columns, 5px horizontal and vertical gaps
+        // 프레임 설정
+        setTitle("치료 관리 시스템");
+        setSize(400, 600);
+        setLayout(new GridLayout(11, 2, 5, 5)); // 11행, 2열, 5px 가로 및 세로 간격
 
-    	    add(new JLabel("�ǻ� ID : "));
-    	    doctorIdField = new JTextField(20);
-    	    add(doctorIdField);
-    	    add(new JLabel());
+        // 각 입력 필드와 라벨 추가
+        add(new JLabel("의사 ID : "));
+        doctorIdField = new JTextField(20);
+        add(doctorIdField);
+        add(new JLabel());
 
-    	    add(new JLabel("��й�ȣ : "));
-    	    passwordField = new JTextField(20);
-    	    add(passwordField);
+        add(new JLabel("비밀번호 : "));
+        passwordField = new JTextField(20);
+        add(passwordField);
 
-    	    authenticateButton = new JButton("����");
-    	    add(authenticateButton);
+        authenticateButton = new JButton("인증");
+        add(authenticateButton);
 
-    	    add(new JLabel("ȯ�� ID : "));
-    	    patientIdField = new JTextField(20);
-    	    add(patientIdField);
-    	    add(new JLabel());
+        add(new JLabel("환자 ID : "));
+        patientIdField = new JTextField(20);
+        add(patientIdField);
+        add(new JLabel());
 
-    	    add(new JLabel("���� ID : "));
-    	    diseaseIdField = new JTextField(20);
-    	    add(diseaseIdField);
-    	    add(new JLabel());
+        add(new JLabel("질병 ID : "));
+        diseaseIdField = new JTextField(20);
+        add(diseaseIdField);
+        add(new JLabel());
 
-    	    add(new JLabel("��ǰ ID : "));
-    	    medicationIdField = new JTextField(20);
-    	    add(medicationIdField);
-    	    add(new JLabel());
+        add(new JLabel("약품 ID : "));
+        medicationIdField = new JTextField(20);
+        add(medicationIdField);
+        add(new JLabel());
 
-    	    add(new JLabel("���� ġ�� : "));
-    	    recommendedTreatmentField = new JTextField(20);
-    	    add(recommendedTreatmentField);
-    	    add(new JLabel());
+        add(new JLabel("권장 치료 : "));
+        recommendedTreatmentField = new JTextField(20);
+        add(recommendedTreatmentField);
+        add(new JLabel());
 
-    	    add(new JLabel("��¥ (YYYY-MM-DD) : "));
-    	    dateField = new JTextField(20);
-    	    add(dateField);
-    	    add(new JLabel());
+        add(new JLabel("날짜 (YYYY-MM-DD) : "));
+        dateField = new JTextField(20);
+        add(dateField);
+        add(new JLabel());
 
-    	    add(new JLabel("���෮ : "));
-    	    dosageField = new JTextField(20);
-    	    add(dosageField);
-    	    add(new JLabel());
+        add(new JLabel("투약량 : "));
+        dosageField = new JTextField(20);
+        add(dosageField);
+        add(new JLabel());
 
-    	    add(new JLabel("KTAS ���� : "));
-    	    ktasField = new JTextField(20);
-    	    add(ktasField);
-    	    add(new JLabel());
+        add(new JLabel("KTAS 점수 : "));
+        ktasField = new JTextField(20);
+        add(ktasField);
+        add(new JLabel());
 
-    	    addButton = new JButton("ġ�� ���� �߰�");
-    	    add(new JLabel()); // Empty cell to align the button
-    	    add(addButton);
+        addButton = new JButton("치료 정보 추가");
+        add(new JLabel()); // 빈 셀을 추가하여 버튼을 맞춤
+        add(addButton);
 
-    	    statusLabel = new JLabel("����: ��� ��");
-    	    add(new JLabel()); // Empty cell to align the label
-    	    add(statusLabel);
+        statusLabel = new JLabel("상태: 대기 중");
+        add(new JLabel()); // 빈 셀을 추가하여 라벨을 맞춤
+        add(statusLabel);
 
-        // �ǻ� ���� ��ư �׼�
+        // 의사 인증 버튼 액션
         authenticateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    // 입력된 의사 ID와 비밀번호 가져오기
                     int doctorId = Integer.parseInt(doctorIdField.getText());
                     int password = Integer.parseInt(passwordField.getText());
+                    // 의사 인증
                     if (authenticateDoctor(doctorId, password)) {
-                        statusLabel.setText("���� ����");
+                        statusLabel.setText("인증 성공");
                     } else {
-                        statusLabel.setText("���� ����");
+                        statusLabel.setText("인증 실패");
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -93,11 +99,12 @@ public class ManageTreatment extends JFrame {
             }
         });
 
-        // ġ�� ���� �߰� ��ư �׼�
+        // 치료 정보 추가 버튼 액션
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    // 입력된 치료 정보 가져오기
                     int patientId = Integer.parseInt(patientIdField.getText());
                     int diseaseId = Integer.parseInt(diseaseIdField.getText());
                     int medicationId = Integer.parseInt(medicationIdField.getText());
@@ -106,11 +113,12 @@ public class ManageTreatment extends JFrame {
                     String dosage = dosageField.getText();
                     int ktas = Integer.parseInt(ktasField.getText());
 
+                    // 치료 정보 추가
                     addTreatment(patientId, diseaseId, medicationId, recommendedTreatment, date, dosage, ktas);
-                    statusLabel.setText("ġ�� ���� �߰� ����");
+                    statusLabel.setText("치료 정보 추가 성공");
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    statusLabel.setText("ġ�� ���� �߰� ����");
+                    statusLabel.setText("치료 정보 추가 실패");
                 }
             }
         });
@@ -119,6 +127,7 @@ public class ManageTreatment extends JFrame {
         setVisible(true);
     }
 
+    // 의사 인증 메서드
     private static boolean authenticateDoctor(int doctorId, int password) throws Exception {
         Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
         String sql = "SELECT * FROM DB2024_Doctor WHERE DoctorID = ? AND PassWord = ?";
@@ -133,6 +142,7 @@ public class ManageTreatment extends JFrame {
         return isAuthenticated;
     }
 
+    // 치료 정보 추가 메서드
     private static void addTreatment(int patientId, int diseaseId, int medicationId, String recommendedTreatment, String date, String dosage, int ktas) throws Exception {
         Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
         String sql = "INSERT INTO DB2024_Treatment (PatientID, DiseaseID, MedicationID, RecommendedTreatment, Date, Dosage, KTAS) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -152,6 +162,7 @@ public class ManageTreatment extends JFrame {
         conn.close();
     }
 
+    // 메인 메서드: 프로그램 시작점
     public static void main(String[] args) {
         new ManageTreatment();
     }
