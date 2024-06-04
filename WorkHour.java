@@ -90,3 +90,6 @@ public class WorkHour extends JFrame {
         workHoursFrame.setVisible(true);
     }
 }
+
+    }
+}
