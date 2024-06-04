@@ -5,6 +5,7 @@ SELECT
 p.PatientID,
 [p.Name](http://p.name/) AS PatientName,
 p.Birth AS DateOfBirth,
+p.ResidentNum
 p.Address,
 p.Phone AS PatientPhone,
 p.GuardianPhone,
