@@ -38,6 +38,7 @@ public class PatientList extends JFrame {
         setVisible(true);
     }
 
+    // 데이터베이스에서 환자 정보를 로드하는 메서드
     private void loadPatients() {
         model.setRowCount(0); // 테이블 초기화
         String query = "SELECT * FROM PatientDoctorTreatmentView";  // 두 뷰를 조인한 뷰 사용
