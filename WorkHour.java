@@ -8,91 +8,85 @@ import javax.swing.*;
 
 public class WorkHour extends JFrame { 
 
-    private String userType; // »ç¿ëÀÚ À¯ÇüÀ» ÀúÀåÇÏ´Â º¯¼ö ¼±¾ğ ("Doctor" ¶Ç´Â "Nurse")
+    private String userType; // ì‚¬ìš©ì ìœ í˜• ì €ì¥ ("Doctor" ë˜ëŠ” "Nurse")
     private static final String DB_URL = "jdbc:mysql://localhost:3306/DB2024Team02";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "root";
     
-    private int currentUserId; // ÇöÀç »ç¿ëÀÚ ID¸¦ ÀúÀåÇÏ´Â º¯¼ö ¼±¾ğ (ÀÇ»ç ID·Î °¡Á¤)
+    private int currentUserId; // í˜„ì¬ ì‚¬ìš©ì ID ì €ì¥
     
-    // WorkHour Å¬·¡½ºÀÇ »ı¼ºÀÚ Á¤ÀÇ
     public WorkHour(String userType, int currentUserId) {
-        this.userType = userType; // »ç¿ëÀÚ À¯Çü ¼³Á¤
-        this.currentUserId = currentUserId; // ÇöÀç »ç¿ëÀÚ ID ¼³Á¤
-        openWorkHoursDialog();
+        this.userType = userType;
+        this.currentUserId = currentUserId;
+        openWorkHoursDialog(); // ì¶œí‡´ê·¼ ì‹œê°„ ì…ë ¥ ë‹¤ì´ì–¼ë¡œê·¸ ì—´ê¸°
     }
 
-    // ÃâÅğ±Ù ½Ã°£ ÀÔ·Â ´ÙÀÌ¾ó·Î±×¸¦ ¿­±â À§ÇÑ ¸Ş¼Òµå Á¤ÀÇ
     private void openWorkHoursDialog() {
-        JFrame workHoursFrame = new JFrame("ÃâÅğ±Ù ½Ã°£ ÀÔ·Â"); // »õ JFrame ÀÎ½ºÅÏ½º »ı¼º
+        JFrame workHoursFrame = new JFrame("ì¶œí‡´ê·¼ ì‹œê°„ ì…ë ¥");
         workHoursFrame.setSize(400, 300);
         workHoursFrame.setLayout(new GridLayout(5, 2));
 
-        JLabel roleLabel = new JLabel("¿ªÇÒ : " + userType); // ¿ªÇÒ Ç¥½Ã ·¹ÀÌºí »ı¼º
-        JLabel idLabel = new JLabel("ID : " + currentUserId); // ID Ç¥½Ã ·¹ÀÌºí »ı¼º
-        JLabel startTimeLabel = new JLabel("Ãâ±Ù ½Ã°£ (HH:MM:SS) : "); // Ãâ±Ù ½Ã°£ ÀÔ·Â ·¹ÀÌºí »ı¼º
-        JTextField startTimeField = new JTextField(); // Ãâ±Ù ½Ã°£ ÀÔ·Â ÇÊµå »ı¼º
-        JLabel endTimeLabel = new JLabel("Åğ±Ù ½Ã°£ (HH:MM:SS) : "); // Åğ±Ù ½Ã°£ ÀÔ·Â ·¹ÀÌºí »ı¼º
-        JTextField endTimeField = new JTextField(); // Åğ±Ù ½Ã°£ ÀÔ·Â ÇÊµå »ı¼º
-        JButton submitButton = new JButton("ÀÔ·Â"); // ÀÔ·Â ¹öÆ° »ı¼º
+        // ë ˆì´ë¸”, ì…ë ¥ í•„ë“œ, ë²„íŠ¼ ìƒì„±
+        JLabel roleLabel = new JLabel("ì—­í•  : " + userType);
+        JLabel idLabel = new JLabel("ID : " + currentUserId);
+        JLabel startTimeLabel = new JLabel("ì¶œê·¼ ì‹œê°„ (HH:MM:SS) : ");
+        JTextField startTimeField = new JTextField();
+        JLabel endTimeLabel = new JLabel("í‡´ê·¼ ì‹œê°„ (HH:MM:SS) : ");
+        JTextField endTimeField = new JTextField();
+        JButton submitButton = new JButton("ì…ë ¥");
 
-        workHoursFrame.add(roleLabel); // ÇÁ·¹ÀÓ¿¡ ¿ªÇÒ ·¹ÀÌºí Ãß°¡
-        workHoursFrame.add(idLabel); // ÇÁ·¹ÀÓ¿¡ ID ·¹ÀÌºí Ãß°¡
-        workHoursFrame.add(startTimeLabel); // ÇÁ·¹ÀÓ¿¡ Ãâ±Ù ½Ã°£ ·¹ÀÌºí Ãß°¡
-        workHoursFrame.add(startTimeField); // ÇÁ·¹ÀÓ¿¡ Ãâ±Ù ½Ã°£ ÀÔ·Â ÇÊµå Ãß°¡
-        workHoursFrame.add(endTimeLabel); // ÇÁ·¹ÀÓ¿¡ Åğ±Ù ½Ã°£ ·¹ÀÌºí Ãß°¡
-        workHoursFrame.add(endTimeField); // ÇÁ·¹ÀÓ¿¡ Åğ±Ù ½Ã°£ ÀÔ·Â ÇÊµå Ãß°¡
-        workHoursFrame.add(new JLabel()); // ºó ¼¿ Ãß°¡ (·¹ÀÌ¾Æ¿ô Á¤·ÄÀ» À§ÇØ)
-        workHoursFrame.add(submitButton); // ÇÁ·¹ÀÓ¿¡ ÀÔ·Â ¹öÆ° Ãß°¡
+        // ì»´í¬ë„ŒíŠ¸ë¥¼ í”„ë ˆì„ì— ì¶”ê°€
+        workHoursFrame.add(roleLabel);
+        workHoursFrame.add(idLabel);
+        workHoursFrame.add(startTimeLabel);
+        workHoursFrame.add(startTimeField);
+        workHoursFrame.add(endTimeLabel);
+        workHoursFrame.add(endTimeField);
+        workHoursFrame.add(new JLabel());
+        workHoursFrame.add(submitButton);
 
-        submitButton.addActionListener(new ActionListener() { // ÀÔ·Â ¹öÆ°¿¡ ´ëÇÑ ActionListener Á¤ÀÇ
-            public void actionPerformed(ActionEvent e) { // ¹öÆ° Å¬¸¯ ÀÌº¥Æ® ÇÚµé·¯
-                String role = userType; // »ç¿ëÀÚ ¿ªÇÒ ¼³Á¤
-                int id = currentUserId; // »ç¿ëÀÚ ID ¼³Á¤
-                String startTime = startTimeField.getText().trim(); // Ãâ±Ù ½Ã°£ ÇÊµå °ª °¡Á®¿À±â
-                String endTime = endTimeField.getText().trim(); // Åğ±Ù ½Ã°£ ÇÊµå °ª °¡Á®¿À±â
+        submitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String role = userType;
+                int id = currentUserId;
+                String startTime = startTimeField.getText().trim();
+                String endTime = endTimeField.getText().trim();
 
-                String tableName; // µ¥ÀÌÅÍº£ÀÌ½º Å×ÀÌºí ÀÌ¸§À» ÀúÀåÇÒ º¯¼ö ¼±¾ğ
-                if (userType.equals("Doctor")) { // »ç¿ëÀÚ À¯ÇüÀÌ ÀÇ»çÀÎ °æ¿ì
-                    tableName = "DB2024_Doctor"; // ÀÇ»ç Å×ÀÌºí ÀÌ¸§ ¼³Á¤
-                } else if (userType.equals("Nurse")) { // »ç¿ëÀÚ À¯ÇüÀÌ °£È£»çÀÎ °æ¿ì
-                    tableName = "DB2024_Nurse"; // °£È£»ç Å×ÀÌºí ÀÌ¸§ ¼³Á¤
+                String tableName; 
+                if (userType.equals("Doctor")) { // ì‚¬ìš©ì ìœ í˜•ì´ ì˜ì‚¬ì¸ ê²½ìš°
+                    tableName = "DB2024_Doctor"; // ì˜ì‚¬ í…Œì´ë¸” ì´ë¦„ ì„¤ì •
+                } else if (userType.equals("Nurse")) { // ì‚¬ìš©ì ìœ í˜•ì´ ê°„í˜¸ì‚¬ì¸ ê²½ìš°
+                    tableName = "DB2024_Nurse"; // ê°„í˜¸ì‚¬ í…Œì´ë¸” ì´ë¦„ ì„¤ì •
                 } else {
-                    JOptionPane.showMessageDialog(workHoursFrame, "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. 'doctor' ¶Ç´Â 'nurse'¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+                    JOptionPane.showMessageDialog(workHoursFrame, "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. 'doctor' ë˜ëŠ” 'nurse'ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
                     return;
                 }
 
-                
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
                     String updateQuery = "UPDATE " + tableName + " SET StartTime = ?, EndTime = ? WHERE " + role + "ID = ?";
                     PreparedStatement pstmt = conn.prepareStatement(updateQuery);
-                    pstmt.setString(1, startTime); // Ãâ±Ù ½Ã°£ ¸Å°³º¯¼ö ¼³Á¤
-                    pstmt.setString(2, endTime); // Åğ±Ù ½Ã°£ ¸Å°³º¯¼ö ¼³Á¤
-                    pstmt.setInt(3, id); // »ç¿ëÀÚ ID ¸Å°³º¯¼ö ¼³Á¤
+                    pstmt.setString(1, startTime); // ì¶œê·¼ ì‹œê°„ ì„¤ì •
+                    pstmt.setString(2, endTime); // í‡´ê·¼ ì‹œê°„ ì„¤ì •
+                    pstmt.setInt(3, id); // ì‚¬ìš©ì ID ì„¤ì •
 
                     int rowsAffected = pstmt.executeUpdate();
-                    if (rowsAffected > 0) { // ¿µÇâ ¹ŞÀº ÇàÀÌ ÀÖ´Â °æ¿ì
-                        JOptionPane.showMessageDialog(workHoursFrame, "¾÷µ¥ÀÌÆ® ¼º°ø!");
-                        
-                    } else { // ¿µÇâ ¹ŞÀº ÇàÀÌ ¾ø´Â °æ¿ì
-                        JOptionPane.showMessageDialog(workHoursFrame, "¾÷µ¥ÀÌÆ® ½ÇÆĞ: ÇØ´ç ID¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+                    if (rowsAffected > 0) { // ì—…ë°ì´íŠ¸ ì„±ê³µ ì‹œ
+                        JOptionPane.showMessageDialog(workHoursFrame, "ì—…ë°ì´íŠ¸ ì„±ê³µ!");
+                    } else { // ì—…ë°ì´íŠ¸ ì‹¤íŒ¨ ì‹œ
+                        JOptionPane.showMessageDialog(workHoursFrame, "ì—…ë°ì´íŠ¸ ì‹¤íŒ¨: í•´ë‹¹ IDë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
                     }
 
                     pstmt.close();
                     conn.close();
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(workHoursFrame, "¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(workHoursFrame, "ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤: " + ex.getMessage());
                 }
-           
-
-                
             }
         });
 
         workHoursFrame.setVisible(true);
     }
-	
 }
