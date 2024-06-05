@@ -1,33 +1,32 @@
 -- 환자 테이블의 환자 이름, 약물, 의사 테이블과 치료 테이블을 결합한 뷰
-
 CREATE VIEW PatientDoctorTreatmentView AS
 SELECT
-p.PatientID,
-[p.Name](http://p.name/) AS PatientName,
-p.Birth AS DateOfBirth,
-p.ResidentNum
-p.Address,
-p.Phone AS PatientPhone,
-p.GuardianPhone,
-dct.DoctorID,
-dct.DoctorName,
-dct.DoctorDepartment,
-dct.ContactNumber AS DoctorPhone,
-ds.DiseaseID,
-ds.DiseaseName,
-m.MedicationID,
-m.MedicationName,
-t.RecommendedTreatment,
-t.Date AS TreatmentDate,
-t.Dosage,
-t.KTAS
+    p.PatientID,
+    p.Name AS PatientName,  -- 변경된 부분: 필드 이름의 적절한 참조
+    p.Birth AS DateOfBirth,
+    p.ResidentNum,  -- 수정된 부분: 콤마 추가
+    p.Address,
+    p.Phone AS PatientPhone,
+    p.GuardianPhone,
+    dct.DoctorID,
+    dct.DoctorName,
+    dct.DoctorDepartment,
+    dct.ContactNumber AS DoctorPhone,
+    ds.DiseaseID,
+    ds.DiseaseName,
+    m.MedicationID,
+    m.MedicationName,
+    t.RecommendedTreatment,
+    t.Date AS TreatmentDate,
+    t.Dosage,
+    t.KTAS
 FROM
-DB2024_patient p
+    DB2024_patient p
 JOIN
-DB2024_Treatment t ON p.PatientID = t.PatientID
+    DB2024_Treatment t ON p.PatientID = t.PatientID
 JOIN
-DB2024_Doctor dct ON p.DoctorID = dct.DoctorID
+    DB2024_Doctor dct ON p.DoctorID = dct.DoctorID
 JOIN
-DB2024_Disease ds ON t.DiseaseID = ds.DiseaseID
+    DB2024_Disease ds ON t.DiseaseID = ds.DiseaseID
 JOIN
-DB2024_Medication m ON t.MedicationID = m.MedicationID;
+    DB2024_Medication m ON t.MedicationID = m.MedicationID;  -- 추가된 부분: Medication 테이블 조인
