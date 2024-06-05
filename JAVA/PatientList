@@ -3,25 +3,28 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.*;
 
+// PatientList 클래스는 JFrame을 상속받아 GUI 애플리케이션의 환자 목록 페이지를 구현합니다.
 public class PatientList extends JFrame {
     // JDBC 드라이버 이름과 데이터베이스 URL
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/db2024team02";
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; // MySQL JDBC 드라이버
+    static final String DB_URL = "jdbc:mysql://localhost:3306/db2024team02"; // 데이터베이스 URL
+    
     // 데이터베이스 계정 정보
-    static final String USER = "DB2024Team02";
-    static final String PASS = "DB2024Team02";
+    static final String USER = "DB2024Team02"; // 데이터베이스 사용자 이름
+    static final String PASS = "DB2024Team02"; // 데이터베이스 비밀번호
 
     // 테이블 및 모델
-    private JTable table;
-    private DefaultTableModel model;
+    private JTable table; // 데이터를 표시할 JTable
+    private DefaultTableModel model; // JTable의 데이터 모델
 
+    // PatientList 생성자: JFrame 설정 및 구성 요소 초기화
     public PatientList() {
-        setTitle("Patient Doctor Treatment List");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1200, 800);
+        setTitle("Patient Doctor Treatment List"); // JFrame 창의 제목 설정
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창을 닫을 때 프로그램이 종료되도록 설정
+        setSize(1200, 800); // JFrame 창의 초기 크기 설정
 
-        Container c = getContentPane();
-        c.setLayout(new BorderLayout());
+        Container c = getContentPane(); // JFrame의 ContentPane을 가져옴
+        c.setLayout(new BorderLayout()); // BorderLayout 사용
 
         // 테이블 모델 설정
         model = new DefaultTableModel(new String[]{
@@ -29,42 +32,42 @@ public class PatientList extends JFrame {
             "DoctorId", "DoctorName", "DoctorDepartment", "DoctorPhone",
             "DiseaseID", "DiseaseName", "MedicationID", "MedicationName",
             "RecommendedTreatment", "TreatmentDate", "Dosage", "KTAS"
-        }, 0);
-        table = new JTable(model);
-        JScrollPane sp = new JScrollPane(table);
-        c.add(sp, BorderLayout.CENTER);
+        }, 0); // 테이블의 컬럼명과 초기 행 수를 지정
+        table = new JTable(model); // 모델을 JTable에 설정
+        JScrollPane sp = new JScrollPane(table); // 테이블을 스크롤 가능한 형태로 만듦
+        c.add(sp, BorderLayout.CENTER); // 스크롤 가능한 테이블을 ContentPane의 중앙에 추가
 
         loadPatients(); // 환자 목록 로드
-        setVisible(true);
+        setVisible(true); // JFrame을 화면에 보이도록 설정
     }
 
     // 데이터베이스에서 환자 정보를 로드하는 메서드
     private void loadPatients() {
         model.setRowCount(0); // 테이블 초기화
-        String query = "SELECT * FROM PatientDoctorTreatmentView";  // 두 뷰를 조인한 뷰 사용
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-            while (rs.next()) {
-                int PatientId = rs.getInt("PatientID");
-                String Name = rs.getString("PatientName");
-                String Birth = rs.getString("DateOfBirth");
-                String PatientPhone = rs.getString("PatientPhone");
-                String GuardianPhone = rs.getString("GuardianPhone");
-                int DoctorId = rs.getInt("DoctorID");
-                String DoctorName = rs.getString("DoctorName");
-                String DoctorDepartment = rs.getString("DoctorDepartment");
-                String DoctorPhone = rs.getString("DoctorPhone");
-                int DiseaseID = rs.getInt("DiseaseID");
-                String DiseaseName = rs.getString("DiseaseName");
-                int MedicationID = rs.getInt("MedicationID");
-                String MedicationName = rs.getString("MedicationName");
-                String RecommendedTreatment = rs.getString("RecommendedTreatment");
-                String TreatmentDate = rs.getString("TreatmentDate");
-                String Dosage = rs.getString("Dosage");
-                String KTAS = rs.getString("KTAS");
+        String query = "SELECT * FROM PatientDoctorTreatmentView"; // 뷰에서 데이터를 가져오는 SQL 쿼리
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); // 데이터베이스 연결
+             Statement stmt = conn.createStatement(); // SQL 문을 실행할 Statement 생성
+             ResultSet rs = stmt.executeQuery(query)) { // 쿼리 실행 및 결과 집합 가져오기
+            while (rs.next()) { // 결과 집합의 각 행에 대해 반복
+                int PatientId = rs.getInt("PatientID"); // 환자 ID 가져오기
+                String Name = rs.getString("PatientName"); // 환자 이름 가져오기
+                String Birth = rs.getString("DateOfBirth"); // 생년월일 가져오기
+                String PatientPhone = rs.getString("PatientPhone"); // 환자 전화번호 가져오기
+                String GuardianPhone = rs.getString("GuardianPhone"); // 보호자 전화번호 가져오기
+                int DoctorId = rs.getInt("DoctorID"); // 의사 ID 가져오기
+                String DoctorName = rs.getString("DoctorName"); // 의사 이름 가져오기
+                String DoctorDepartment = rs.getString("DoctorDepartment"); // 의사 부서 가져오기
+                String DoctorPhone = rs.getString("DoctorPhone"); // 의사 전화번호 가져오기
+                int DiseaseID = rs.getInt("DiseaseID"); // 질병 ID 가져오기
+                String DiseaseName = rs.getString("DiseaseName"); // 질병 이름 가져오기
+                int MedicationID = rs.getInt("MedicationID"); // 약물 ID 가져오기
+                String MedicationName = rs.getString("MedicationName"); // 약물 이름 가져오기
+                String RecommendedTreatment = rs.getString("RecommendedTreatment"); // 추천 치료법 가져오기
+                String TreatmentDate = rs.getString("TreatmentDate"); // 치료 날짜 가져오기
+                String Dosage = rs.getString("Dosage"); // 약물 용량 가져오기
+                String KTAS = rs.getString("KTAS"); // KTAS 가져오기
 
-                // 모델에 행 추가 (Address 제거)
+                // 모델에 행 추가
                 model.addRow(new Object[]{
                     PatientId, Name, Birth, PatientPhone, GuardianPhone,
                     DoctorId, DoctorName, DoctorDepartment, DoctorPhone,
@@ -73,11 +76,12 @@ public class PatientList extends JFrame {
                 });
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // SQL 예외 발생 시 스택 추적 출력
         }
     }
 
+    // 메인 메서드: 프로그램 시작 지점
     public static void main(String[] args) {
-        new PatientList();
+        new PatientList(); // PatientList 인스턴스를 생성하여 창을 엽니다.
     }
 }
