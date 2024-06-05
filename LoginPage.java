@@ -99,6 +99,7 @@ public class LoginPage extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    //로그인 페이지 자바, MYSQL 연결
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
@@ -106,7 +107,7 @@ public class LoginPage extends JFrame implements ActionListener {
             String pass = new String(pwField.getPassword());
 
             try {
-                String sql_query = String.format("SELECT Password FROM LoginDB WHERE ID = '%s' AND Password ='%s'",
+                String sql_query = String.format("SELECT Password FROM 2024DB_LoginDB WHERE ID = '%s' AND Password ='%s'",
                         id, pass);
 
                 Connection conn = getConnection();
@@ -116,7 +117,7 @@ public class LoginPage extends JFrame implements ActionListener {
 
                 if (rset.next() && pass.equals(rset.getString(1))) {
                     JOptionPane.showMessageDialog(this, "Login Success", "로그인 성공", JOptionPane.INFORMATION_MESSAGE);
-                    new MainPage();
+                    new MainPage(); // 로그인 성공 시 로그인 성공 메시지 및 메인페이지로 넘어감
                 } else {
                     JOptionPane.showMessageDialog(this, "Login Failed", "로그인 실패", JOptionPane.ERROR_MESSAGE);
                 }
