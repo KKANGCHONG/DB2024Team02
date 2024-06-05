@@ -23,9 +23,9 @@ public class PatientList extends JFrame {
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
 
-        // 테이블 모델 설정
+        // 테이블 모델 설정 (Address 제거)
         model = new DefaultTableModel(new String[]{
-            "PatientId", "Name", "Birth", "Address", "PatientPhone", "GuardianPhone",
+            "PatientId", "Name", "Birth", "PatientPhone", "GuardianPhone",
             "DoctorId", "DoctorName", "DoctorDepartment", "DoctorPhone",
             "DiseaseID", "DiseaseName", "MedicationID", "MedicationName",
             "RecommendedTreatment", "TreatmentDate", "Dosage", "KTAS"
@@ -64,7 +64,7 @@ public class PatientList extends JFrame {
                 String Dosage = rs.getString("Dosage");
                 String KTAS = rs.getString("KTAS");
 
-                // 모델에 행 추가
+                // 모델에 행 추가 (Address 제거)
                 model.addRow(new Object[]{
                     PatientId, Name, Birth, PatientPhone, GuardianPhone,
                     DoctorId, DoctorName, DoctorDepartment, DoctorPhone,
