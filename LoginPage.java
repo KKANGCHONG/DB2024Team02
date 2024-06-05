@@ -107,7 +107,7 @@ public class LoginPage extends JFrame implements ActionListener {
             String pass = new String(pwField.getPassword());
 
             try {
-                String sql_query = String.format("SELECT Password FROM 2024DB_LoginDB WHERE ID = '%s' AND Password ='%s'",
+                String sql_query = String.format("SELECT Password FROM DB2024_LoginDB WHERE ID = '%s' AND Password ='%s'",
                         id, pass);
 
                 Connection conn = getConnection();
