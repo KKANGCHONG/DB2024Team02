@@ -1,4 +1,4 @@
-CREATE VIEW LoginDB AS
+CREATE VIEW DB2024_LoginDB AS
 SELECT 
     DoctorID AS ID,
     PassWord AS Password,
