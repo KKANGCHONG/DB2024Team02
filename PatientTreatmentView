@@ -1,5 +1,3 @@
--- 환자 테이블과 치료 테이블을 결합한 뷰
-
 CREATE VIEW PatientTreatmentView AS
 SELECT
 p.PatientID,
