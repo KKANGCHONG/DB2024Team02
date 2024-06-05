@@ -23,7 +23,7 @@ public class PatientList extends JFrame {
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
 
-        // 테이블 모델 설정 (Address 제거)
+        // 테이블 모델 설정
         model = new DefaultTableModel(new String[]{
             "PatientId", "Name", "Birth", "PatientPhone", "GuardianPhone",
             "DoctorId", "DoctorName", "DoctorDepartment", "DoctorPhone",
