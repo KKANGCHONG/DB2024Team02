@@ -1,4 +1,4 @@
-CREATE VIEW PatientTreatmentView AS
+CREATE VIEW DB2024_PatientTreatmentView AS
 SELECT
     p.PatientID,
     p.Name AS PatientName,  -- 변경된 부분: 필드 이름의 적절한 참조
