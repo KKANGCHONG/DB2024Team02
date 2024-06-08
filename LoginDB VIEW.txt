@@ -1,0 +1,12 @@
+CREATE VIEW DB2024_LoginDB AS
+SELECT 
+    d.DoctorID, 
+    d.PassWord AS DoctorPassword,
+    n.NurseID, 
+    n.PassWord AS NursePassword
+FROM 
+    DB2024_Doctor d
+JOIN 
+    DB2024_Nurse n
+ON 
+    d.DoctorDepartment = n.NurseDepartment;
